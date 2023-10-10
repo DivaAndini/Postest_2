@@ -1,5 +1,5 @@
-#Nama: Diva Tri Andini
-#NIM: 2309116011
+# Nama: Diva Tri Andini
+# NIM: 2309116011
 
 Gambar flowchart:
 ![Flowchart drawio](https://github.com/DivaAndini/Postest_2/assets/143860881/fe5b4f32-7a35-42b5-8797-31fcc73426dc)
