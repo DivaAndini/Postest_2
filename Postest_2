@@ -1,0 +1,143 @@
+from prettytable import PrettyTable
+import os
+os.system('cls')
+
+#list bersarang untuk menyimpan nilai dari variabel menu_items
+menu_items = [
+    ["Cheese Burger", 25000],
+    ["Chicken Burger", 23000],
+    ["Ice Coffee", 15000],
+    ["Ice Choco", 15000]
+]
+
+#fungsi untukk menampilkan daftar menu menggunakan prettytable
+def tampilkan_menu():
+    daftar_menu = PrettyTable()
+    daftar_menu.field_names = ["Nama Menu", "Harga"]
+    for row in menu_items:
+        daftar_menu.add_row(row)
+    print(daftar_menu)
+
+#fungsi untuk halaman penjual
+def halaman_penjual():
+
+#fungsi untuk create / menambah daftar menu
+    def create_menu():
+        nama_menu = input("Nama menu = ")
+        harga = int(input("Harga menu = "))
+        menu_items.append([nama_menu, harga])
+        print(f"Menu {nama_menu} telah ditambahkan")
+
+#fungsi untuk read / menampilkan daftar menu
+    def read_menu():
+        tampilkan_menu()
+
+#fungsi untuk update / memperbarui daftar menu
+    def update_menu():
+        nama_baru = input("Nama menu yang ingin diperbarui = ")
+        harga_baru = int(input("Harga menu terbaru = "))
+        for row in menu_items:
+            if row[0] == nama_baru:
+                row[1] = harga_baru
+                tampilkan_menu()
+                print(f"Menu {nama_baru} telah diperbarui")
+                return
+        print(f"Menu {nama_baru} tidak ditemukan")
+
+#fungsi untuk delete / menghapus daftar menu
+    def delete_menu():
+        nama_menu = input("Nama menu yang ingin dihapus = ")
+        for row in menu_items:
+            if row[0] == nama_menu:
+                menu_items.remove(row)
+                tampilkan_menu()
+                print(f"Menu {nama_menu} telah dihapus")
+                return
+        print(f"Menu {nama_menu} tidak ditemukan")
+
+#fungsi untuk keluar dari halaman penjual dan kembali ke halaman utama
+    def keluar():
+        print("Anda keluar dari halaman penjual")
+        halaman_utama()
+
+    while True:
+        print("""
+========================
+Halaman Penjual:
+1. Tambah Menu
+2. Tampilkan Daftar Menu
+3. Update Menu
+4. Hapus Menu
+0. Keluar
+========================
+""")
+        pilihan = input("Masukkan pilihan penjual = ")
+
+        if pilihan == "1":
+            create_menu()
+        elif pilihan == "2":
+            read_menu()
+        elif pilihan == "3":
+            update_menu()
+        elif pilihan == "4":
+            delete_menu()
+        elif pilihan == "0":
+            keluar()
+            break
+        else:
+            print("Pilihan tidak valid")
+
+#fungsi untuk halaman pembeli
+def halaman_pembeli():
+    print("""
+=====================================
+Daftar Menu yang Tersedia
+=====================================""")
+    tampilkan_menu()
+    pesan = input("Menu yang dipesan = ")
+    jumlah = int(input("Jumlah menu yang dipesan = "))
+    total = 0  #total awal diberi nilai 0
+
+    for item in menu_items:
+        if item[0] == pesan:
+            harga = item[1]
+            total = harga * jumlah
+            print(f"Total pembayaran {jumlah} {pesan} adalah {total}")
+            break  #mengentikan loop sesudah menemukan menu yang cocok
+
+    if total == 0:  #menu tidak ditemukan
+        print(f"{pesan} tidak terdapat dalam daftar menu")
+
+    print()
+    tanya = input("Apakah pembeli ingin membeli lagi? (y/t) = ")
+    if tanya == "y":
+        halaman_pembeli()
+    elif tanya == "t":
+        halaman_utama()
+    else:
+        print("Pilihan tidak valid")
+
+#fungsi untuk program utama
+def halaman_utama():
+    print("""
+=====================================
+Selamat Datang di Restoran Cepat Saji""")
+    print("""=====================================
+Halaman Utama:
+1. Penjual
+2. Pembeli
+3. Selesai
+=====================================""")
+    halaman = int(input("Masuk ke halaman = "))
+
+    if halaman == 1:
+        print("Anda masuk ke halaman penjual")
+        halaman_penjual()
+    elif halaman == 2:
+        print("Anda masuk ke halaman pembeli")
+        halaman_pembeli()
+    else:
+        print("Sampai Jumpa Lagi di Restoran Cepat Saji")
+
+#memulai program dengan memanggil fungsi halaman_utama()
+halaman_utama()
